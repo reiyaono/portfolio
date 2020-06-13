@@ -11,22 +11,24 @@
   <div id="wrapper">
       <section id="main">
         <div style="line-height: 0;">
-          <img @click="modalUp(1)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/linkbal_thumbnail.jpg" style="width: 100%; height: 100%;"></img>
-          <img @click="modalUp(2)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/yourhands_thumbnail.jpg" style="width: 100%; height: 100%;"></img>
-          <img @click="modalUp(3)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/quince_thumbnail.jpg" style="width: 100%; height: 100%;"></img>
-          <img @click="modalUp(4)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/homies_thumbnail.jpg" style="width: 100%; height: 100%;"></img>
-          <img @click="modalUp(5)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/aminas_thumbnail.jpg" style="width: 100%; height: 100%;"></img>
+          <img @click="modalUp(1)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/linkbal_thumbnail.jpg"></img>
+          <img @click="modalUp(2)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/yourhands_thumbnail.jpg"></img>
+          <img @click="modalUp(3)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/quince_thumbnail.jpg"></img>
+          <img @click="modalUp(4)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/homies_thumbnail.jpg"></img>
+          <img @click="modalUp(5)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/aminas_thumbnail.jpg"></img>
         </div>
       </section>
       <transition name="modal">
         <div v-if="showModal" class="modal" @click="showModal = false">
           <div class="modal-container">
             <iframe :src="`https://www.youtube.com/embed/${videoInfo[showModal - 1].url}`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-            <div class="modal-container-text">title: {{videoInfo[showModal - 1].title}}</div>
-            <div class="modal-container-text">client: {{videoInfo[showModal -1].client}} </div>
-            <ul class="icons">
-              <li><a href="/index.html" class="fa-home">home</a></li>
-            </ul>
+            <div class="modal-container-info">
+              <div class="modal-container-text">title: {{videoInfo[showModal - 1].title}}</div>
+              <div class="modal-container-text">client: {{videoInfo[showModal -1].client}}</div>
+              <ul class="icons">
+                <li><a href="/index.html" class="fa-home">home</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </transition>
@@ -48,20 +50,12 @@
       baseUrl: 'https://reiyaono.github.io/portfolio/images/photo/'
     },
     methods: {
-      embedUrl () {
-        return 
-      },
-      scrollTop () {
+      scrollModal () {
         window.scrollTo(0, window.innerHeight / 2)
       },
       modalUp(index) {
-        this.scrollTop()
+        this.scrollModal()
         this.showModal = index
-      }
-    },
-    computed: {
-      fuga () {
-        return 'aaaa.jpg'
       }
     }
   })
@@ -69,23 +63,11 @@
 <style type="text/css">
 .thumb {
   background-color: #000000;
+  width: 100%;
+  height: 100%;
 }
 .thumb:hover {
   opacity: 0.45;
-}
-.imageText {
-  position: absolute;
-  top: 50%;
-  right: 46%;
-  font-size: 16px;
-  color: #FFFFFF;
-}
-.linkText {
-  position: absolute;
-  top: 80%;
-  right: 46%;
-  font-size: 16px;
-  color: #FFFFFF;
 }
 .modal {
   text-align: center;
@@ -114,6 +96,9 @@
 }
 .modal-container-text {
   margin-bottom: 10px;
+}
+.modal-container-info {
+  margin: 30px;
 }
 .modal-enter-active, .modal-leave-active {
   transition: opacity .3s;
