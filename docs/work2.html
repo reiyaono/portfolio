@@ -53,7 +53,10 @@
         { title: 'Another Vlight', client: 'Wisteria', url: 'ZAKMbaZPJw8' }
       ],
       baseUrl: 'https://reiyaono.github.io/portfolio/images/photo/'
-    }, 
+    },
+    created () {
+      console.log('--------')
+    },
     methods: {
       scrollModal () {
         window.scrollTo(0, document.documentElement.scrollHeight / 3)
