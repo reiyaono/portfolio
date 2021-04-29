@@ -13,22 +13,17 @@
   </ul>
   <div id="wrapper">
       <section id="main">
-        <div style="line-height: 0;">
-          <img @click="modalUp(1)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/linkbal_thumbnail.jpg"></img>
-          <img @click="modalUp(2)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/yourhands_thumbnail.jpg"></img>
-          <img @click="modalUp(3)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/quince_thumbnail.jpg"></img>
-          <img @click="modalUp(4)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/homies_thumbnail.jpg"></img>
-          <img @click="modalUp(5)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/aminas_thumbnail.jpg"></img>
-          <img @click="modalUp(6)" class="thumb" src="https://reiyaono.github.io/portfolio/images/photo/wisteria.jpg"></img>
+        <div v-for="(info, i) in videoInfos" :key="info.title" style="line-height: 0;">
+          <img @click="modalUp(i + 1)" class="thumb" :src="`${baseUrl + info.img}.jpg`">
         </div>
       </section>
       <transition name="modal">
         <div v-if="showModal" class="modal" @click="showModal = false">
           <div class="modal-container">
-            <iframe :src="`https://www.youtube.com/embed/${videoInfo[showModal - 1].url}`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+            <iframe :src="`https://www.youtube.com/embed/${videoInfos[showModal - 1].url}`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
             <div class="modal-container-info">
-              <div class="modal-container-text">title: {{videoInfo[showModal - 1].title}}</div>
-              <div class="modal-container-text">client: {{videoInfo[showModal -1].client}}</div>
+              <div class="modal-container-text">title: {{videoInfos[showModal - 1].title}}</div>
+              <div class="modal-container-text">client: {{videoInfos[showModal -1].client}}</div>
               <ul class="icons">
                 <li><a href="/index.html" class="fa-home">home</a></li>
               </ul>
@@ -44,13 +39,17 @@
     el: '#wrapper',
     data: {
       showModal: false,
-      videoInfo: [
+      videoInfos: [
         { title: 'Facebook Ad', client: 'Disclosed', url: 'k3F5EvsbQzs', img: 'linkbal_thumbnail' }, 
         { title: 'YOUR HANDs', client: 'UNBLEED', url: 'BOukuIsoPE0', img: 'yourhands_thumbnail' },
         { title: 'THE SPACE THAT PERFECT ALL', client: 'Quince', url: 'jCEx3SdQaDc', img: 'quince_thumbnail' },
-        { title: 'A Straight And Honest Flame Shakes In My Heart', client: 'homies', url: '0Xd3b8vGhr4' },
-        { title: 'Playing God', client: 'aminas', url: '-_oMhxLP6Qs' },
-        { title: 'Another Vlight', client: 'Wisteria', url: 'ZAKMbaZPJw8' }
+        { title: 'A Straight And Honest Flame Shakes In My Heart', client: 'homies', url: '0Xd3b8vGhr4', img: 'homies_thumbnail' },
+        { title: 'Playing God', client: 'aminas', url: '-_oMhxLP6Qs', img: 'aminas_thumbnail' },
+        { title: 'Another Vlight', client: 'Wisteria', url: 'ZAKMbaZPJw8', img: 'wisteria' },
+        { title: '『Last Hope』LIVE MUSIC VIDEO', client: 'TRiDENT', url: 'X1_oj4MJo8I', img: 'TRiDENT' },
+        { title: '儚く消える愛の讃歌', client: '白石 響', url: '66FHrMvsBx4', img: 'hibikisan'},
+        { title: 'tokumei', client: '朱愁い', url: 'CsQVP0Vmi-Q', img: 'tokumei'},
+        { title: 'ASTOR 2020 (Official Music Video)', client: 'UNBLEED', url: 'U3npohfWGdE', img: 'aster'}
       ],
       baseUrl: 'https://reiyaono.github.io/portfolio/images/photo/'
     }, 
