@@ -1,5 +1,12 @@
-languageCode = "en-us"
-title = "My New Hugo Site"
-theme = "hugo-identity-theme"
+name = "Hugo Identity"
+license = "Creative Commons Attribution 3.0 Unported License"
+licenselink = "//github.com/aerohub/hugo-identity/blob/master/LICENSE.md"
+description = "Little profile/card-style template based on Identity by HTML5 UP."
+homepage = "//github.com/aerohub/hugo-identity-theme"
+tags = ["responsive", "configurable", "profile", "card", "contact", "social", "minimal", "google analytics"]
+min_version = 0.16
 baseurl = "reiyaono.com"
-canonifyurls = true
+
+[author]
+  name = "Pavel Kanyshev"
+  homepage = "https://github.com/aerohub/hugo-identity-theme"

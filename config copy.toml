@@ -1,0 +1,5 @@
+languageCode = "en-us"
+title = "My New Hugo Site"
+theme = "hugo-identity-theme"
+baseurl = "reiyaono.com"
+canonifyurls = true
