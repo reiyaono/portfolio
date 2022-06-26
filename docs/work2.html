@@ -13,7 +13,7 @@
   </ul>
   <div id="wrapper">
       <section id="main">
-        <div v-for="(info, i) in videoInfos" :key="info.title" style="line-height: 0;">
+        <div v-for="(info, i) in videoInfos" :key="info.title" class="mainContent">
           <img @click="modalUp(i + 1)" class="thumb" :src="`${baseUrl + info.img}.jpg`">
         </div>
       </section>
@@ -89,6 +89,7 @@
 }
 .modal-container {
   width: 80%;
+  max-width: 800px;
   height: 650px;
   margin: auto 50px;
   background-color: white;
@@ -133,6 +134,10 @@ iframe {
 .homeIcon {
   background: #FFF;
   box-shadow: 0 0 5px rgba(0,0,0,0.7);
+}
+.mainContent {
+  line-height: 0;
+  cursor: pointer;
 }
 </style>
 </html>
