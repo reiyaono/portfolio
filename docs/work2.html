@@ -1,8 +1,11 @@
 <!DOCTYPE HTML>
-
 <html lang="en-us">
 <head>
-  <link rel="apple-touch-icon-precomposed" href="https://reiyaono.github.io/portfolio/images/icons/%25!s%28MISSING%29" />
+  <title>Reiya Ono — Video Works</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Reiya Ono — video works. Music videos and commercial films.">
+  <link rel="apple-touch-icon-precomposed" href="https://reiyaono.github.io/portfolio/images/avatars/Me.jpg" />
   <link rel="stylesheet" href="https://reiyaono.github.io/portfolio/assets/css/main.css" />
   <link rel="stylesheet" href="https://reiyaono.github.io/portfolio/assets/css/page.css" />
   <link rel="stylesheet" href="https://reiyaono.github.io/portfolio/assets/css/font-awesome.min.css" />
@@ -11,133 +14,195 @@
   <ul class="icons fixedIcon">
     <li><a href="/index.html" class="fa-home homeIcon">home</a></li>
   </ul>
-  <div id="wrapper">
+
+  <div id="app">
+    <div id="wrapper">
       <section id="main">
-        <div v-for="(info, i) in videoInfos" :key="info.title" class="mainContent">
-          <img @click="modalUp(i + 1)" class="thumb" :src="`${baseUrl + info.img}.jpg`">
+        <div v-for="(video, i) in videos" :key="video.url" class="thumb-wrap" @click="open(i)">
+          <img class="thumb" :src="thumbUrl(video)" :alt="video.title" loading="lazy">
         </div>
       </section>
-      <transition name="modal">
-        <div v-if="showModal" class="modal" @click="showModal = false">
-          <div class="modal-container">
-            <iframe :src="`https://www.youtube.com/embed/${videoInfos[showModal - 1].url}`" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-            <div class="modal-container-info">
-              <div class="modal-container-text">title: {{videoInfos[showModal - 1].title}}</div>
-              <div class="modal-container-text">client: {{videoInfos[showModal -1].client}}</div>
-              <ul class="icons">
-                <li><a href="/index.html" class="fa-home">home</a></li>
-              </ul>
-            </div>
+    </div>
+
+    <transition name="modal">
+      <div v-if="current" class="modal" @click="close">
+        <div class="modal-container" @click.stop>
+          <button class="modal-close" type="button" @click="close" aria-label="Close">&times;</button>
+          <div class="video-frame">
+            <iframe
+              :src="embedUrl"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              :title="current.title"></iframe>
+          </div>
+          <div class="modal-info">
+            <div class="modal-title">{{ current.title }}</div>
+            <div class="modal-client">{{ current.client }}</div>
           </div>
         </div>
-      </transition>
+      </div>
+    </transition>
   </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
-<script type="text/javascript">
-  var vm = new Vue({
-    el: '#wrapper',
-    data: {
-      showModal: false,
-      videoInfos: [
-        { title: 'Facebook Ad', client: 'Disclosed', url: 'k3F5EvsbQzs', img: 'linkbal_thumbnail' }, 
-        { title: 'YOUR HANDs', client: 'UNBLEED', url: 'BOukuIsoPE0', img: 'yourhands_thumbnail' },
-        { title: 'THE SPACE THAT PERFECT ALL', client: 'Quince', url: 'jCEx3SdQaDc', img: 'quince_thumbnail' },
-        { title: 'A Straight And Honest Flame Shakes In My Heart', client: 'homies', url: '0Xd3b8vGhr4', img: 'homies_thumbnail' },
-        { title: 'Playing God', client: 'aminas', url: '-_oMhxLP6Qs', img: 'aminas_thumbnail' },
-        { title: 'Another Vlight', client: 'Wisteria', url: 'ZAKMbaZPJw8', img: 'wisteria' },
-        { title: '『Last Hope』LIVE MUSIC VIDEO', client: 'TRiDENT', url: 'X1_oj4MJo8I', img: 'TRiDENT' },
-        { title: '儚く消える愛の讃歌', client: '白石 響', url: '66FHrMvsBx4', img: 'hibikisan'},
-        { title: 'tokumei', client: '朱愁い', url: 'CsQVP0Vmi-Q', img: 'tokumei'},
-        { title: 'ASTOR 2020 (Official Music Video)', client: 'UNBLEED', url: 'U3npohfWGdE', img: 'aster'}
-      ],
-      baseUrl: 'https://reiyaono.github.io/portfolio/images/photo/'
-    }, 
-    methods: {
-      scrollModal () {
-        window.scrollTo(0, document.documentElement.scrollHeight / 3)
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: '#app',
+      data: {
+        selected: null, // index of the open video; null = closed
+        baseUrl: 'https://reiyaono.github.io/portfolio/images/photo/',
+        videos: [
+          { title: 'Facebook Ad', client: 'Disclosed', url: 'k3F5EvsbQzs', img: 'linkbal_thumbnail' },
+          { title: 'YOUR HANDs', client: 'UNBLEED', url: 'BOukuIsoPE0', img: 'yourhands_thumbnail' },
+          { title: 'THE SPACE THAT PERFECT ALL', client: 'Quince', url: 'jCEx3SdQaDc', img: 'quince_thumbnail' },
+          { title: 'A Straight And Honest Flame Shakes In My Heart', client: 'homies', url: '0Xd3b8vGhr4', img: 'homies_thumbnail' },
+          { title: 'Playing God', client: 'aminas', url: '-_oMhxLP6Qs', img: 'aminas_thumbnail' },
+          { title: 'Another Vlight', client: 'Wisteria', url: 'ZAKMbaZPJw8', img: 'wisteria' },
+          { title: '『Last Hope』LIVE MUSIC VIDEO', client: 'TRiDENT', url: 'X1_oj4MJo8I', img: 'TRiDENT' },
+          { title: '儚く消える愛の讃歌', client: '白石 響', url: '66FHrMvsBx4', img: 'hibikisan' },
+          { title: 'tokumei', client: '朱愁い', url: 'CsQVP0Vmi-Q', img: 'tokumei' },
+          { title: 'ASTOR 2020 (Official Music Video)', client: 'UNBLEED', url: 'U3npohfWGdE', img: 'aster' }
+        ]
       },
-      modalUp(index) {
-        this.scrollModal()
-        this.showModal = index
+      computed: {
+        current: function () {
+          return this.selected === null ? null : this.videos[this.selected];
+        },
+        embedUrl: function () {
+          if (!this.current) { return ''; }
+          return 'https://www.youtube.com/embed/' + this.current.url + '?autoplay=1&rel=0&modestbranding=1';
+        }
+      },
+      methods: {
+        thumbUrl: function (video) {
+          return this.baseUrl + video.img + '.jpg';
+        },
+        open: function (index) {
+          this.selected = index;
+          document.body.style.overflow = 'hidden';
+        },
+        close: function () {
+          this.selected = null;
+          document.body.style.overflow = '';
+        },
+        onKeydown: function (e) {
+          if (e.key === 'Escape') { this.close(); }
+        }
+      },
+      mounted: function () {
+        window.addEventListener('keydown', this.onKeydown);
+      },
+      beforeDestroy: function () {
+        window.removeEventListener('keydown', this.onKeydown);
       }
+    });
+  </script>
+
+  <style type="text/css">
+    #wrapper { padding: 0; }
+    #main {
+      padding: 0;
+      max-width: 1000px;
     }
-  })
-</script>
-<style type="text/css">
-.thumb {
-  background-color: #000000;
-  width: 100%;
-  height: 100%;
-}
-.thumb:hover {
-  opacity: 0.45;
-}
-.modal {
-  text-align: center;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, .6);
-}
-.modal-container {
-  width: 80%;
-  max-width: 800px;
-  height: 650px;
-  margin: auto 50px;
-  background-color: white;
-  flex: 1;
-  line-height: 1;
-  border-radius: 15px;
-  padding-bottom: 30px;
-  overflow: hidden;
-}
-.modal-container-text {
-  margin-bottom: 10px;
-}
-.modal-container-info {
-  margin: 30px;
-}
-.modal-enter-active, .modal-leave-active {
-  transition: opacity .3s;
-}
-.modal-enter, .modal-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-iframe {
-  width: 90%;
-  height: 70%;
-  margin: 30px 0;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.4);
-}
-#main {
-  padding: 0;
-  max-width: 1000px;
-}
-#wrapper {
-  padding: 0px;
-}
-.fixedIcon {
-  position: fixed;
-  bottom: 0;
-  right: 10px;
-  z-index: 4;
-}
-.homeIcon {
-  background: #FFF;
-  box-shadow: 0 0 5px rgba(0,0,0,0.7);
-}
-.mainContent {
-  line-height: 0;
-  cursor: pointer;
-}
-</style>
+
+    /* gallery */
+    .thumb-wrap {
+      line-height: 0;
+      cursor: pointer;
+    }
+    .thumb {
+      display: block;
+      width: 100%;
+      background-color: #000;
+      transition: opacity 0.2s ease;
+    }
+    .thumb-wrap:hover .thumb {
+      opacity: 0.45;
+    }
+
+    /* modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      box-sizing: border-box;
+      background: rgba(0, 0, 0, 0.6);
+    }
+    .modal-container {
+      position: relative;
+      width: 100%;
+      max-width: 880px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      padding: 24px;
+      background: #fff;
+      border-radius: 15px;
+      line-height: 1;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      border: none;
+      background: none;
+      font-size: 28px;
+      line-height: 1;
+      color: #666;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .modal-close:hover { color: #000; }
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .modal-info {
+      margin-top: 22px;
+      text-align: center;
+    }
+    .modal-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .modal-client {
+      color: #777;
+    }
+    .modal-enter-active, .modal-leave-active {
+      transition: opacity 0.3s;
+    }
+    .modal-enter, .modal-leave-to {
+      opacity: 0;
+    }
+
+    /* fixed home button */
+    .fixedIcon {
+      position: fixed;
+      bottom: 0;
+      right: 10px;
+      z-index: 4;
+    }
+    .homeIcon {
+      background: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</body>
 </html>
