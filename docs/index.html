@@ -26,6 +26,63 @@
   <meta property="og:description" content="This is portfolio site of reiya ono, feel free to contact to me" />
   <meta name="og:image" content="https://reiyaono.com/images/ogp_cover.jpg">
   <meta property="og:url" content="https://reiyaono.com" />
+
+  <style type="text/css">
+    .work-links {
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      margin-top: 1.75em;
+      margin-bottom: 1em;
+    }
+    .work-btn {
+      flex: 1;
+      max-width: 11em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4em;
+      padding: 1.15em 0.75em;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.55);
+      color: #414f57 !important;
+      text-decoration: none !important;
+      transition: all 0.2s ease;
+    }
+    .work-btn:hover {
+      transform: translateY(-3px);
+      border-color: #ff7496;
+      color: #ff7496 !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-decoration: none !important;
+    }
+    .work-btn .fa { font-size: 1.55em; line-height: 1; }
+    .work-btn .wb-title {
+      font-size: 1.05em;
+      font-weight: bold;
+      letter-spacing: 0.06em;
+    }
+    .work-btn .wb-sub {
+      font-size: 0.68em;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8a979e;
+    }
+    @media screen and (max-width: 480px) {
+      .work-links { flex-direction: column; align-items: center; }
+      .work-btn {
+        width: 100%;
+        max-width: 17em;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.65em;
+        padding: 0.9em 0.75em;
+      }
+      .work-btn .fa { font-size: 1.2em; }
+      .work-btn .wb-sub { display: none; }
+    }
+  </style>
 </head>
 
 <body class="is-loading">
@@ -48,10 +105,18 @@
           <p>Open for work &mdash; feel free to reach out.
           <br>Contact: <a href="mailto:reiya018018s@gmail.com"><u>reiya018018s@gmail.com</u></a></p>
         </h6>
-        <h3>
-          <p><a href="https://reiyaono.com/work2.html" style="display: block;"><u>Works &mdash; Video</u></a></p>
-          <p><a href="https://reiyaono.com/dev.html" style="display: block;"><u>Works &mdash; Dev</u></a></p>
-        </h3>
+        <div class="work-links">
+          <a class="work-btn" href="https://reiyaono.com/work2.html">
+            <i class="fa fa-film" aria-hidden="true"></i>
+            <span class="wb-title">Video</span>
+            <span class="wb-sub">Film &amp; Motion</span>
+          </a>
+          <a class="work-btn" href="https://reiyaono.com/dev.html">
+            <i class="fa fa-code" aria-hidden="true"></i>
+            <span class="wb-title">Dev</span>
+            <span class="wb-sub">Engineering</span>
+          </a>
+        </div>
       </header>
       <footer>
         <ul class="icons">
