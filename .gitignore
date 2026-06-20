@@ -1,0 +1,5 @@
+# Claude Code 作業用ディレクトリ（調査レポート等）
+.claude/
+
+# macOS
+.DS_Store
